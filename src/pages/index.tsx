@@ -1,11 +1,22 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import styles from "./home.module.scss"
+// <import fonts
+import font from "@/lib/configs/font";
+import { useState } from 'react';
+import PersonalInfo from '@/components/personal-info';
+import SelectPlan from '@/components/select-plan';
+// import fonts>
 
 export default function Home() {
+
+  const stepData = [
+    {id:0,step:1,title:"YOUR INFO"},
+    {id:1,step:2,title:"SELECT PLAN"},
+    {id:2,step:3,title:"ADD-ONS"},
+    {id:3,step:4,title:"SUMMARY"}
+  ];
+
+  const [step , setStep ] = useState(1);
   return (
     <>
       <Head>
@@ -14,100 +25,31 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
+      <main className={`${font.className} ${styles.main}`}>
+          <section className={styles.sidebar}>
+           <div>
+            {
+              stepData.map((item) => <div key={item.id} className={styles.stepContainer}>
+                <div className={`${step === item.step ? styles.stepActive : ""} ${styles.stepCircle} `}>{item.step}</div>
+                <div className={styles.stepInfo}>
+                  <span className={styles.step}>step {item.step}</span>
+                  <span className={styles.stepTitle}>{item.title}</span>
+                </div>
+              </div>)
+            }
+           </div>
+          </section>
+          <section className={styles.container}>
+            {
+              step === 1 ?  <PersonalInfo/> : step === 2 ? <SelectPlan/> : step === 3 ? <div>3</div> : <div>4</div>
+            }
+            <div>
+              <button onClick={()=> setStep(step + 1)}>Next Step</button>
+              {
+                step !== 1 && <button onClick={() => setStep(step - 1)}>Go Back</button>
+              }
+            </div>
+          </section>
       </main>
     </>
   )
