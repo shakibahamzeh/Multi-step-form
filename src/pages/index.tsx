@@ -5,6 +5,7 @@ import font from "@/lib/configs/font";
 import { useState } from 'react';
 import PersonalInfo from '@/components/personal-info';
 import SelectPlan from '@/components/select-plan';
+import PickAddOns from '@/components/pick-add-ons';
 // import fonts>
 
 export default function Home() {
@@ -41,7 +42,7 @@ export default function Home() {
           </section>
           <section className={styles.container}>
             {
-              step === 1 ?  <PersonalInfo/> : step === 2 ? <SelectPlan/> : step === 3 ? <div>3</div> : <div>4</div>
+              step === 1 ?  <PersonalInfo/> : step === 2 ? <SelectPlan/> : step === 3 ? <PickAddOns/> : <div>4</div>
             }
             <div>
               <button onClick={()=> setStep(step + 1)}>Next Step</button>
