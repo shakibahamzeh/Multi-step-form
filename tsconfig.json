@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/pick-add-ons/index.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/pick-add-ons/index.js", "src/pages/index.js", "src/components/personal-info/index.jsx", "src/pages/_app.js", "src/components/select-plan/index.js"],
   "exclude": ["node_modules"]
 }
