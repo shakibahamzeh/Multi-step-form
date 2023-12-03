@@ -16,7 +16,7 @@
     border-radius: 20px;
 }
 .container {
-    flex: 5;
+    flex: 4;
     padding: 100px 100px;
 }
 .stepContainer {
@@ -27,7 +27,6 @@
         display: inline-flex;
         width: 45px;
         height: 45px;
-        cursor: pointer;
         align-items: center;
         justify-content: center;
         border-radius: 50%;

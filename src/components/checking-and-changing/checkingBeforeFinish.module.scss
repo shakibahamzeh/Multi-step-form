@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    h2{
+        font-size: 42px;
+        font-weight: 700;
+        color:$marine-blue;
+        margin-bottom: 10px
+    }
+    p{
+        font-size: 22px;
+        color: $cool-gray;
+    }
+}
