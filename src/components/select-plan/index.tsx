@@ -1,9 +1,31 @@
 import React, { useContext, useState } from "react";
 import styles from "./selectPlan.module.scss";
 import Image from "next/image";
-import { Toggle } from "rsuite";
 import { StepContext } from "@/lib/context/step/stepContext";
-const SelectPlan = () => {
+
+
+
+const SelectPlan: React.FC = () => {
+
+  const [time, setTime] = useState("monthly");
+  const [isChecked, setIsChecked] = useState("monthly");
+  const [activeId, setActiveId] = useState(0);
+  const step = useContext(StepContext);
+  interface  IData {
+    id:number, 
+    icon: string,
+    price: string | number,
+    title: string
+  }
+
+
+  const [data, setData] = useState<IData>({
+    id: 0,
+    icon: "",
+    price: "",
+    title: "",
+  });
+
   const planDataMonthly = [
     { id: 0, title: "Arcade", icon: "/icon-arcade.svg", price: 9 },
     { id: 1, title: "Advanced", icon: "/icon-advanced.svg", price: 12 },
@@ -14,8 +36,7 @@ const SelectPlan = () => {
     { id: 1, title: "Advanced", icon: "/icon-advanced.svg", price: 120 },
     { id: 2, title: "Pro", icon: "/icon-pro.svg", price: 150 },
   ];
-  const [time, setTime] = useState("monthly");
-  const [isChecked, setIsChecked] = useState("monthly");
+ 
   const handleChange = () => {
     if (isChecked === "monthly") {
       setIsChecked("yearly");
@@ -25,27 +46,25 @@ const SelectPlan = () => {
       setTime("monthly");
     }
   };
-  const step = useContext(StepContext);
+ 
   const goBackHandler = () => {
     step.setStep(1);
     localStorage.setItem("step", "1");
   };
-  const [data, setData] = useState({
-    id: "",
-    icon: "",
-    price: "",
-    title: "",
-  });
-  const activeHandler = (item) => {
+  
+  
+  const activeHandler = (item: any) => {
     setActiveId(item.id);
+    setData(item)
   };
-  const submitHandler = (item) => {
+
+ console.log(data)
+  const submitHandler = () => {
     step.setStep(3);
     localStorage.setItem("step", "3");
-
     localStorage.setItem("plan", JSON.stringify(data));
   };
-  const [activeId, setActiveId] = useState(0);
+ 
 
   return (
     <div className={styles.container}>
@@ -63,7 +82,7 @@ const SelectPlan = () => {
                   className={`${
                     item.id === activeId ? styles.activeCard : ""
                   } ${styles.card}`}
-                  onClick={activeHandler}
+                  onClick={() => activeHandler(item)}
                 >
                   <Image src={item.icon} width={50} height={50} alt="" />
                   <h3>{item.title}</h3>
@@ -79,7 +98,7 @@ const SelectPlan = () => {
                   className={`${
                     item.id === activeId ? styles.activeCard : ""
                   } ${styles.card}`}
-                  onClick={activeHandler}
+                  onClick={() => activeHandler(item)}
                 >
                   <Image src={item.icon} width={50} height={50} alt="" />
                   <h3>{item.title}</h3>
