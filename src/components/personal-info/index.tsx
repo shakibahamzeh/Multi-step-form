@@ -2,29 +2,45 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "./personalInfo.module.scss";
 import { Validate } from "@/lib/utils/validate";
 import { StepContext } from "@/lib/context/step/stepContext";
-const PersonalInfo = () => {
-  const [data, setData] = useState({
+import {IData} from "@/lib/types/types"
+
+const PersonalInfo : React.FC= () => {
+
+  interface ITouched {
+    email:boolean,
+    phone:boolean,
+    fullName:boolean
+  }
+
+  const [data, setData] = useState<IData>({
     email: "",
     phone: "",
     fullName: "",
   });
-  const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
+
+  const [errors, setErrors] = useState<IData>({
+    email: "",
+    phone: "",
+    fullName: "",
+  });
+  const [touched, setTouched] = useState<ITouched>({
+    email: false,
+    phone: false,
+    fullName: false,
+  })
+  
   const step = useContext(StepContext);
 
-  useEffect(() => {
-    setErrors(Validate(data));
-  }, [data, touched]);
+ 
 
-  const changeHandler = (event) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [event.target.name]: event.target.value });
   };
-  const focusHandler = (event) => {
+  const focusHandler = (event:React.FocusEvent<HTMLInputElement>) => {
     setTouched({ ...touched, [event.target.name]: true });
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+  const submitHandler = () => {
     if (!Object.keys(errors).length) {
       console.log("You login successfully", "success");
       step.setStep(2);
@@ -39,6 +55,13 @@ const PersonalInfo = () => {
       });
     }
   };
+
+ 
+
+  useEffect(() => {
+    setErrors(Validate(data));
+  }, [data, touched]);
+
 
   return (
     <div className={styles.container}>

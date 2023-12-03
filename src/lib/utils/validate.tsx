@@ -1,5 +1,8 @@
-export const Validate = (data) => {
-  const errors = {};
+import { IData } from "../types/types";
+export const Validate = (data:any) => {
+  const errors : IData ={
+    email:"" , fullName :"", phone :""
+  };
 
   if (!data.email) {
     errors.email = "this field required.";
