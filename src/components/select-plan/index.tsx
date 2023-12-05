@@ -47,6 +47,7 @@ const SelectPlan: React.FC = () => {
     }
   };
  
+
   const goBackHandler = () => {
     step.setStep(1);
     localStorage.setItem("step", "1");
@@ -58,11 +59,11 @@ const SelectPlan: React.FC = () => {
     setData(item)
   };
 
- console.log(data)
   const submitHandler = () => {
     step.setStep(3);
     localStorage.setItem("step", "3");
     localStorage.setItem("plan", JSON.stringify(data));
+    localStorage.setItem('period', time)
   };
  
 
