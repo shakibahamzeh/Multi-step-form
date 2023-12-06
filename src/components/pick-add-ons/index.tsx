@@ -70,11 +70,11 @@ const PickAddOns:React.FC = () => {
     let myList: ISelected[] = [];
     if (localStorage.getItem("period") === "monthly") {
       newSelect.map((b, i) => {
-        if (b) myList.push(monthlyData[index]);
+        if (b) myList.push(monthlyData[i]);
       });
     } else {
       newSelect.map((b, i) => {
-        if (b) myList.push(yearlyData[index]);
+        if (b) myList.push(yearlyData[i]);
       });
     }
     setSelected(newSelect);
