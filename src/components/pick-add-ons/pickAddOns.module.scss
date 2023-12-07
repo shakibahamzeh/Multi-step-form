@@ -1,29 +1,24 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    @include flexElement(column,space-between,space-between);
     height: 100%;
     h2{
-        font-size: 42px;
-        font-weight: 700;
-        color:$marine-blue;
-        margin-bottom: 10px
+        margin-bottom: 10px;
+        @include textStyle(42px,700,$marine-blue);
     }
     p{
-        font-size: 20px;
-        color: $cool-gray;
+        @include textStyle(20px , 400,$cool-gray)
     }
   }
 .pickAddOnsContainer{
     margin: 30px 0;
     & .addOnsContainer{
         display: flex;
-        align-items: center;
+        @include flexElement(row,flex-start,center);
         gap: 15px;
         padding: 20px 20px;
         border: 1px solid $light-gray;
         width: 700px;
-        border-radius: 8px;
+        @include borderRadius;
         margin-bottom: 20px;
         cursor: pointer;
         transition: 0.5s;
@@ -34,13 +29,11 @@
             border-color: $marine-blue;
         }
         h4{
-            color: $marine-blue;
-            font-size: 16px;
+            @include textStyle(16px,500,$marine-blue);
             margin-bottom: 4px;
         }
         span{
-            color: $cool-gray;
-            font-size: 14px;
+            @include textStyle(14px, 400,$cool-gray);
         }
 
         input{
@@ -52,8 +45,7 @@
         .content{
             display: flex;
             width: 100%;
-            align-items: center;
-            justify-content: space-between;
+            @include textStyle(row,space-between,center);
             & .period{
                 color: $purplish-blue;
             }
@@ -65,38 +57,34 @@
 .buttonContainer {
     display: flex;
     width: 100%;
-    align-items: center;
+    @include flexElement(row,space-between,center);
     gap: 20px;
-    justify-content: space-between;
     direction: rtl;
     .button{
         width: 200px;
         border: none;
         outline: none;
-        border-radius: 8px;
+        @include borderRadius;
         background-color: $marine-blue;
         height: 60px;
-        color: white;
-        font-size: 20px;
-        font-weight: 700;
+        @include textStyle(20px,700,$white);
         cursor: pointer;
         transition: 0.5s;
         &:hover{
             opacity: 0.8;
+            background-color: $purplish-blue;
         }
     }
     .deActive{
         width: 200px;
         border: none;
         outline: none;
-        border-radius: 8px;
+        @include borderRadius;
         background-color: $cool-gray;
         height: 60px;
         cursor: not-allowed;
-        color: $white;
-        font-size: 20px;
-        font-weight: 700;
         transition: 0.5s;
+        @include textStyle(20px,700,$white);
         &:hover{
             opacity: 0.8;
         }
@@ -104,14 +92,12 @@
     .backButton{
         border: none;
         outline: none;
-        border-radius: 8px;
+        @include borderRadius;
         background-color: transparent;
         height: 60px;
-        color: $cool-gray;
-        font-size: 20px;
         cursor: pointer;
         transition: 0.5s;
-        font-weight: 700;
+        @include textStyle(20px , 700, $cool-gray);
         &:hover{
             color: $marine-blue;
         }

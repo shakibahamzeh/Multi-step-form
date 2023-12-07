@@ -1,19 +1,14 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    @include flexElement(column,space-between,space-between);
     height: 100%;
     h2{
-        font-size: 42px;
-        font-weight: 700;
-        color:$marine-blue;
-        margin-bottom: 10px
+        margin-bottom: 10px;
+        @include textStyle(42px,700,$marine-blue);
     }
     p{
-        font-size: 20px;
-        color: $cool-gray;
+        @include textStyle(20px , 400,$cool-gray)
     }
-}
+  }
 .form{
     margin-bottom: 10%px;
     & .formControl{
@@ -23,9 +18,7 @@
         width: 100%;
         label{
             margin-bottom: 10px;
-            color: $marine-blue;
-            font-weight: 400;
-            font-size: 20px;
+            @include textStyle(20px , 400,$marine-blue);
         }
         input{
             outline: 0;
@@ -33,13 +26,10 @@
             width: 100%;
             border: 1px solid $light-gray;
             padding: 16px 12px;
-            border-radius: 8px;
-            color: $marine-blue;
-            font-size: 24px;
+            @include borderRadius;
+            @include textStyle(24px, 400,$marine-blue);
             &::placeholder{
-                color: $cool-gray;
-                font-size: 18px;
-                font-weight: 500;
+                @include textStyle(18px,500,$cool-gray);
             }
         }
         .uncompleted{
@@ -47,12 +37,11 @@
         }
 
         .error{
-            color: $strawberry-red;
             display: inline-flex;
-            justify-content: flex-end;
+            @include flexElement(row,flex-end,center);
             width: 100%;
             margin-top: 10px;
-            font-size: 20px;
+            @include textStyle(20px, 400,$strawberry-red);
         }
     }
 }
@@ -60,38 +49,34 @@
 .buttonContainer {
     display: flex;
     width: 100%;
-    align-items: center;
+    @include flexElement(row,space-between,center);
     gap: 20px;
-    justify-content: space-between;
     direction: rtl;
     .button{
         width: 200px;
         border: none;
         outline: none;
-        border-radius: 8px;
+        @include borderRadius;
         background-color: $marine-blue;
         height: 60px;
-        color: white;
-        font-size: 20px;
-        font-weight: 700;
+        @include textStyle(20px,700,$white);
         cursor: pointer;
         transition: 0.5s;
         &:hover{
             opacity: 0.8;
+            background-color: $purplish-blue;
         }
     }
     .deActive{
         width: 200px;
         border: none;
         outline: none;
-        border-radius: 8px;
+        @include borderRadius;
         background-color: $cool-gray;
         height: 60px;
         cursor: not-allowed;
-        color: $white;
-        font-size: 20px;
-        font-weight: 700;
         transition: 0.5s;
+        @include textStyle(20px,700,$white);
         &:hover{
             opacity: 0.8;
         }
@@ -99,16 +84,15 @@
     .backButton{
         border: none;
         outline: none;
-        border-radius: 8px;
+        @include borderRadius;
         background-color: transparent;
         height: 60px;
-        color: $cool-gray;
-        font-size: 20px;
         cursor: pointer;
         transition: 0.5s;
-        font-weight: 700;
+        @include textStyle(20px , 700, $cool-gray);
         &:hover{
             color: $marine-blue;
         }
     }
 }
+
