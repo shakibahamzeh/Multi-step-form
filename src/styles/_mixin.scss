@@ -1,0 +1,17 @@
+@mixin flexElement($flex-direction,$justify-content,$align-items) {
+    display: flex;
+    flex-direction: $flex-direction;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+
+@mixin textStyle($font-size,$font-weight,$font-color) {
+   font-size: $font-size; 
+   font-weight: $font-weight;
+   color: $font-color;
+}
+
+@mixin borderRadius ($border-radius: 8px){
+    border-radius: $border-radius;
+}

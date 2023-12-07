@@ -5,25 +5,25 @@ export const Validate = (data:any) => {
   };
 
   if (!data.email) {
-    errors.email = "this field required.";
+    errors.email = "This field required.";
   } else if (!/\S+@\S+\.\S+/.test(data.email)) {
-    errors.email = "email address is invalid";
+    errors.email = "Email address is invalid.";
   } else {
     delete errors.email;
   }
   if (!data.fullName.trim()) {
-    errors.fullName = "this field required";
+    errors.fullName = "This field required.";
   } else {
     delete errors.fullName;
   }
   if (!data.phone) {
-    errors.phone = "this field required";
+    errors.phone = "This field required.";
   } else if (
     !/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i.test(
       data.phone
     )
   ) {
-    errors.phone = "phone number is invalid";
+    errors.phone = "Phone number is invalid.";
   } else {
     delete errors.phone;
   }

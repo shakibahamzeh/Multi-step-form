@@ -1,17 +1,12 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    @include flexElement(column,space-between,space-between);
     height: 100%;
     h2{
-        font-size: 42px;
-        font-weight: 700;
-        color:$marine-blue;
-        margin-bottom: 10px
+        margin-bottom: 10px;
+        @include textStyle(42px,700,$marine-blue);
     }
     p{
-        font-size: 20px;
-        color: $cool-gray;
+        @include textStyle(20px , 400,$cool-gray)
     }
   }
   
@@ -19,20 +14,17 @@
 .buttonContainer {
     display: flex;
     width: 100%;
-    align-items: center;
+    @include flexElement(row,space-between,center);
     gap: 20px;
-    justify-content: space-between;
     direction: rtl;
     .button{
         width: 200px;
         border: none;
         outline: none;
-        border-radius: 8px;
+        @include borderRadius;
         background-color: $marine-blue;
         height: 60px;
-        color: $white;
-        font-size: 20px;
-        font-weight: 700;
+        @include textStyle(20px,700,$white);
         cursor: pointer;
         transition: 0.5s;
         &:hover{
@@ -44,14 +36,12 @@
         width: 200px;
         border: none;
         outline: none;
-        border-radius: 8px;
+        @include borderRadius;
         background-color: $cool-gray;
         height: 60px;
         cursor: not-allowed;
-        color: $white;
-        font-size: 20px;
-        font-weight: 700;
         transition: 0.5s;
+        @include textStyle(20px,700,$white);
         &:hover{
             opacity: 0.8;
         }
@@ -59,14 +49,12 @@
     .backButton{
         border: none;
         outline: none;
-        border-radius: 8px;
+        @include borderRadius;
         background-color: transparent;
         height: 60px;
-        color: $cool-gray;
-        font-size: 20px;
         cursor: pointer;
         transition: 0.5s;
-        font-weight: 700;
+        @include textStyle(20px , 700, $cool-gray);
         &:hover{
             color: $marine-blue;
         }
@@ -75,14 +63,13 @@
 
 .contentContainer{
     display: flex;
-    flex-direction: column;
+    @include flexElement(column,space-between,space-between);
+    @include borderRadius;
+    width: 100%;
     padding: 50px 30px;
     background-color: $magnolia;
-    border-radius: 8px;
     & .change{
-        color: $cool-gray;
-        font-size: 18px;
-        font-weight: 500;
+        @include textStyle(18px, 500,$cool-gray);
         margin-top: 5px;
         text-decoration: underline;
         cursor: pointer;
@@ -94,17 +81,12 @@
 }
 .planContainer {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flexElement(row,space-between,center);
     & .planTitle{
-        font-size: 22px;
-        font-weight: 700;
-        color: $marine-blue;
+        @include textStyle(22px,700,$marine-blue)
     }
     & .planPrice{
-      font-size: 18px;
-      font-weight: 700;
-      color: $marine-blue;
+      @include textStyle(18px, 700, $marine-blue);
     }
 }
 .price{
@@ -113,35 +95,25 @@
 
 .oncContainer{
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flexElement(row,space-between, center);
     margin-top: 15px;
     & .onsValue{
-      font-size: 18px;
-      font-weight: 500;
-      color: $cool-gray;
+      @include textStyle(18px, 500,$cool-gray);
     }
     & .onsPrice{
-        font-size: 16px;
-        font-weight: 500;
-        color: $marine-blue;
+      @include textStyle(16px,500,$marine-blue);
     }
 }
 
 .totalContainer{
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flexElement(row,space-between,center);
     padding: 0 30px;
     margin-bottom: 100px;
     & .totalTitle{
-      font-size: 20px;
-      font-weight: 500;
-      color: $cool-gray;
+      @include textStyle(20px,500,$cool-gray);
     }
     & .totalPrice{
-        font-size: 28px;
-        font-weight: 700;
-        color: $purplish-blue;
+      @include textStyle(28px,700,$purplish-blue);
     }
 }
