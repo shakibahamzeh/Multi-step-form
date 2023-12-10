@@ -1,5 +1,5 @@
 import { IData } from "../types/types";
-export const Validate = (data:any) => {
+export const Validate = (data:IData) => {
   const errors : IData ={
     email:"" , fullName :"", phone :""
   };
@@ -11,7 +11,7 @@ export const Validate = (data:any) => {
   } else {
     delete errors.email;
   }
-  if (!data.fullName.trim()) {
+  if (!data?.fullName?.trim()) {
     errors.fullName = "This field required.";
   } else {
     delete errors.fullName;
