@@ -74,17 +74,7 @@ const PersonalInfo : React.FC= () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = () => {
-  //     localStorage.setItem("personalInfo", JSON.stringify(FormData));
-  //   };
 
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, [formData]);
   return (
     <div className={styles.container}>
       <div>

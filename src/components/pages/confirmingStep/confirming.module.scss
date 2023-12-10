@@ -1,0 +1,17 @@
+.container {
+    @include flexElement(column,center,center);
+    height: 100%;
+    img{
+        margin-bottom: 35px;
+    }
+    h2{
+        margin-bottom: 35px;
+        @include textStyle(42px,700,$marine-blue);
+        text-align:center;
+    }
+    p{
+        @include textStyle(20px , 400,$cool-gray);
+        text-align:center;
+        width: 650px;
+    }
+  }
