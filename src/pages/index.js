@@ -8,6 +8,7 @@ import SelectPlan from "@/components/pages/select-plan";
 import PickAddOns from "@/components/pages/pick-add-ons";
 import CheckingAndChange from "@/components/pages/checking-and-changing";
 import { StepContext } from "@/lib/context/step/stepContext";
+import Confirming from "@/components/pages/confirmingStep";
 // import fonts>
 
 export default function Home() {
@@ -57,7 +58,7 @@ export default function Home() {
           ) : step.step === 4 ? (
             <CheckingAndChange />
           ) : (
-            <div>5</div>
+            <Confirming />
           )}
         </section>
       </main>
