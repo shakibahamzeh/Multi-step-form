@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState , useEffect} from "react";
 import styles from "./selectPlan.module.scss";
 import Image from "next/image";
 import { StepContext } from "@/lib/context/step/stepContext";
@@ -6,20 +6,17 @@ import { StepContext } from "@/lib/context/step/stepContext";
 
 
 const SelectPlan: React.FC = () => {
+  interface  IPlan {
+    id:number | undefined, 
+    icon: string | undefined,
+    price: string | number | undefined,
+    title: string | undefined
+  }
 
   const [time, setTime] = useState("monthly");
   const [isChecked, setIsChecked] = useState("monthly");
-  const [activeId, setActiveId] = useState(0);
   const step = useContext(StepContext);
-  interface  IData {
-    id:number, 
-    icon: string,
-    price: string | number,
-    title: string
-  }
-
-
-  const [data, setData] = useState<IData>({
+  const [selectedPlan, setSelectedPlan] = useState<IPlan>({
     id: 0,
     icon: "",
     price: "",
@@ -31,6 +28,7 @@ const SelectPlan: React.FC = () => {
     { id: 1, title: "Advanced", icon: "/icon-advanced.svg", price: 12 },
     { id: 2, title: "Pro", icon: "/icon-pro.svg", price: 15 },
   ];
+
   const planDataYearly = [
     { id: 0, title: "Arcade", icon: "/icon-arcade.svg", price: 90 },
     { id: 1, title: "Advanced", icon: "/icon-advanced.svg", price: 120 },
@@ -38,34 +36,40 @@ const SelectPlan: React.FC = () => {
   ];
  
   const handleChange = () => {
-    if (isChecked === "monthly") {
-      setIsChecked("yearly");
-      setTime("yearly");
-    } else {
-      setIsChecked("monthly");
-      setTime("monthly");
-    }
+    const newTime = time === "monthly" ? "yearly" : "monthly";
+    setIsChecked(newTime);
+    setTime(newTime);
   };
- 
 
   const goBackHandler = () => {
     step.setStep(1);
     localStorage.setItem("step", "1");
+ 
   };
-  
-  
+
   const activeHandler = (item: any) => {
-    setActiveId(item.id);
-    setData(item)
+    setSelectedPlan(item)
   };
 
   const submitHandler = () => {
     step.setStep(3);
     localStorage.setItem("step", "3");
-    localStorage.setItem("plan", JSON.stringify(data));
+    localStorage.setItem('selectedPlan', JSON.stringify(selectedPlan));
     localStorage.setItem('period', time)
   };
- 
+
+  useEffect(() => {
+    const storedPlan = localStorage.getItem('selectedPlan');
+    const storedPeriod = localStorage.getItem('period');
+    if (storedPlan) {
+      setSelectedPlan(JSON.parse(storedPlan));
+    }
+    if (storedPeriod){
+      setTime(storedPeriod)
+      setIsChecked(storedPeriod === "monthly" ? 'monthly' : 'yearly');
+    }
+  }, []);
+
 
   return (
     <div className={styles.container}>
@@ -81,7 +85,7 @@ const SelectPlan: React.FC = () => {
                 <div
                   key={item.id}
                   className={`${
-                    item.id === activeId ? styles.activeCard : ""
+                    item.id === selectedPlan.id ? styles.activeCard : ""
                   } ${styles.card}`}
                   onClick={() => activeHandler(item)}
                 >
@@ -97,7 +101,7 @@ const SelectPlan: React.FC = () => {
                 <div
                   key={item.id}
                   className={`${
-                    item.id === activeId ? styles.activeCard : ""
+                    item.id === selectedPlan.id ? styles.activeCard : ""
                   } ${styles.card}`}
                   onClick={() => activeHandler(item)}
                 >
@@ -111,25 +115,17 @@ const SelectPlan: React.FC = () => {
           )}
         </div>
         <div className={styles.toggle}>
-          <div
-            className={
-              isChecked === "monthly" ? styles.active : styles.toggleTitle
-            }
-          >
-            Monthly
-          </div>
-          <label className={styles.switch}>
-            <input type="checkbox" value={isChecked} onChange={handleChange} />
-            <div className={styles.slider}></div>
-          </label>
-          <div
-            className={
-              isChecked === "yearly" ? styles.active : styles.toggleTitle
-            }
-          >
-            Yearly
-          </div>
-        </div>
+            <div className={isChecked === "monthly" ? styles.active : styles.toggleTitle}>
+              Monthly
+            </div>
+            <label className={styles.switch}>
+              <input type="checkbox" checked={isChecked === "yearly"} onChange={handleChange} />
+              <div className={styles.slider}></div>
+            </label>
+            <div className={isChecked === "yearly" ? styles.active : styles.toggleTitle}>
+              Yearly
+            </div>
+      </div>
       </div>
       <div className={styles.buttonContainer}>
         <button className={styles.button} onClick={submitHandler}>

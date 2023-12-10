@@ -4,6 +4,7 @@ import { Validate } from "@/lib/utils/validate";
 import { StepContext } from "@/lib/context/step/stepContext";
 import {IData} from "@/lib/types/types"
 
+
 const PersonalInfo : React.FC= () => {
 
   interface ITouched {
@@ -12,11 +13,11 @@ const PersonalInfo : React.FC= () => {
     fullName:boolean
   }
 
-  const [data, setData] = useState<IData>({
-    email: "",
-    phone: "",
-    fullName: "",
-  });
+  // const [data, setData] = useState<IData>({
+  //   email: "",
+  //   phone: "",
+  //   fullName: "",
+  // });
 
   const [errors, setErrors] = useState<IData>({
     email: "",
@@ -28,13 +29,17 @@ const PersonalInfo : React.FC= () => {
     phone: false,
     fullName: false,
   })
-  
+  const [formData, setFormData] = useState<IData>({
+    email: "",
+    phone: "",
+    fullName: "",
+  });
   const step = useContext(StepContext);
 
- 
+
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setData({ ...data, [event.target.name]: event.target.value });
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
   const focusHandler = (event:React.FocusEvent<HTMLInputElement>) => {
     setTouched({ ...touched, [event.target.name]: true });
@@ -45,7 +50,7 @@ const PersonalInfo : React.FC= () => {
       console.log("You login successfully", "success");
       step.setStep(2);
       localStorage.setItem('step','2');
-      localStorage.setItem('personalInfo',JSON.stringify(data))
+      localStorage.setItem('formData', JSON.stringify(formData));
     } else {
       console.log("Invalid data", "error");
       setTouched({
@@ -56,13 +61,30 @@ const PersonalInfo : React.FC= () => {
     }
   };
 
- 
+
 
   useEffect(() => {
-    setErrors(Validate(data));
-  }, [data, touched]);
+    setErrors(Validate(formData));
+  }, [formData, touched]);
 
+  useEffect(() => {
+    const storedData = localStorage.getItem('formData');
+    if (storedData) {
+      setFormData(JSON.parse(storedData));
+    }
+  }, []);
 
+  // useEffect(() => {
+  //   const handleBeforeUnload = () => {
+  //     localStorage.setItem("personalInfo", JSON.stringify(FormData));
+  //   };
+
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, [formData]);
   return (
     <div className={styles.container}>
       <div>
@@ -78,6 +100,7 @@ const PersonalInfo : React.FC= () => {
             name="fullName"
             onChange={changeHandler}
             onFocus={focusHandler}
+            value={formData.fullName}
             className={(errors.fullName && touched.fullName) ? styles.uncompleted : ""}
           />
           {errors.fullName && touched.fullName && (
@@ -91,6 +114,7 @@ const PersonalInfo : React.FC= () => {
             placeholder="e.g. stephrnking@lorem.com"
             name="email"
             onChange={changeHandler}
+            value={formData.email}
             onFocus={focusHandler}
             className={(errors.email && touched.email) ? styles.uncompleted : ""}
           />
@@ -104,13 +128,14 @@ const PersonalInfo : React.FC= () => {
             name="phone"
             onChange={changeHandler}
             onFocus={focusHandler}
+            value={formData.phone}
             className={(errors.phone && touched.phone) ? styles.uncompleted : ""}
           />
           {errors.phone && touched.phone && <span className={styles.error}>{errors.phone}</span>}
         </div>
       </form>
       <div className={styles.buttonContainer}>
-        <button className={Object.keys(errors).length ? styles.deActive : styles.button} onClick={submitHandler} disabled={Object.keys(errors).length ? true : false}>Next Step</button>
+        <button className={Object.keys(errors).length ? styles.deActive : styles.button} onClick={submitHandler} disabled={Object.keys(errors).length > 0}>Next Step</button>
         {/* <button className={styles.backButton}>Go Back</button> */}
       </div>
     </div>

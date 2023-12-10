@@ -9,50 +9,42 @@
         @include textStyle(20px , 400,$cool-gray)
     }
   }
-.pickAddOnsContainer{
-    margin: 30px 0;
-    & .addOnsContainer{
+.form{
+    margin-bottom: 10%px;
+    & .formControl{
+        margin-bottom: 25px;
         display: flex;
-        @include flexElement(row,flex-start,center);
-        gap: 15px;
-        padding: 20px 20px;
-        border: 1px solid $light-gray;
-        width: 700px;
-        @include borderRadius;
-        margin-bottom: 20px;
-        cursor: pointer;
-        transition: 0.5s;
-        &:hover{
-            border-color: $purplish-blue;
+        flex-direction: column;
+        width: 100%;
+        label{
+            margin-bottom: 10px;
+            @include textStyle(20px , 400,$marine-blue);
         }
-        &.activeAddOnsContainer{
-            border-color: $marine-blue;
-        }
-        h4{
-            @include textStyle(16px,500,$marine-blue);
-            margin-bottom: 4px;
-        }
-        span{
-            @include textStyle(14px, 400,$cool-gray);
-        }
-
         input{
-            &:checked  {
-                background-color: #595959;
-              }
+            outline: 0;
+            border: none;
+            width: 100%;
+            border: 1px solid $light-gray;
+            padding: 16px 12px;
+            @include borderRadius;
+            @include textStyle(20px, 400,$marine-blue);
+            &::placeholder{
+                @include textStyle(18px,500,$cool-gray);
+            }
+        }
+        .uncompleted{
+            border: 1px solid $strawberry-red;
         }
 
-        .content{
-            display: flex;
+        .error{
+            display: inline-flex;
+            @include flexElement(row,flex-end,center);
             width: 100%;
-            @include textStyle(row,space-between,center);
-            & .period{
-                color: $purplish-blue;
-            }
+            margin-top: 10px;
+            @include textStyle(20px, 400,$strawberry-red);
         }
     }
 }
-
 
 .buttonContainer {
     display: flex;
@@ -103,3 +95,4 @@
         }
     }
 }
+

@@ -3,10 +3,10 @@ import styles from "./home.module.scss";
 // <import fonts
 import font from "@/lib/configs/font";
 import { useContext, useState } from "react";
-import PersonalInfo from "@/components/personal-info";
-import SelectPlan from "@/components/select-plan";
-import PickAddOns from "@/components/pick-add-ons";
-import CheckingAndChange from "@/components/checking-and-changing";
+import PersonalInfo from "@/components/pages/personal-info";
+import SelectPlan from "@/components/pages/select-plan";
+import PickAddOns from "@/components/pages/pick-add-ons";
+import CheckingAndChange from "@/components/pages/checking-and-changing";
 import { StepContext } from "@/lib/context/step/stepContext";
 // import fonts>
 

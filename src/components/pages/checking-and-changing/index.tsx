@@ -115,7 +115,7 @@ const CheckingAndChange: React.FC= () => {
         </div>
       </div>
       <div className={styles.totalContainer}>
-        <div className={styles.totalTitle}>Total (per {period})</div>
+        <div className={styles.totalTitle}>Total ({period})</div>
         <div className={styles.totalPrice}>
           ${total} / {period}
         </div>

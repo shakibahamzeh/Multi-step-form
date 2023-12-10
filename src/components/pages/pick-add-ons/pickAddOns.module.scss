@@ -9,42 +9,50 @@
         @include textStyle(20px , 400,$cool-gray)
     }
   }
-.form{
-    margin-bottom: 10%px;
-    & .formControl{
-        margin-bottom: 25px;
+.pickAddOnsContainer{
+    margin: 30px 0;
+    & .addOnsContainer{
         display: flex;
-        flex-direction: column;
-        width: 100%;
-        label{
-            margin-bottom: 10px;
-            @include textStyle(20px , 400,$marine-blue);
+        @include flexElement(row,flex-start,center);
+        gap: 15px;
+        padding: 20px 20px;
+        border: 1px solid $light-gray;
+        width: 700px;
+        @include borderRadius;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: 0.5s;
+        &:hover{
+            border-color: $purplish-blue;
         }
-        input{
-            outline: 0;
-            border: none;
-            width: 100%;
-            border: 1px solid $light-gray;
-            padding: 16px 12px;
-            @include borderRadius;
-            @include textStyle(24px, 400,$marine-blue);
-            &::placeholder{
-                @include textStyle(18px,500,$cool-gray);
-            }
+        &.activeAddOnsContainer{
+            border-color: $marine-blue;
         }
-        .uncompleted{
-            border: 1px solid $strawberry-red;
+        h4{
+            @include textStyle(16px,500,$marine-blue);
+            margin-bottom: 4px;
+        }
+        span{
+            @include textStyle(14px, 400,$cool-gray);
         }
 
-        .error{
-            display: inline-flex;
-            @include flexElement(row,flex-end,center);
+        input{
+            &:checked  {
+                background-color: #595959;
+              }
+        }
+
+        .content{
+            display: flex;
             width: 100%;
-            margin-top: 10px;
-            @include textStyle(20px, 400,$strawberry-red);
+            @include flexElement(row,space-between,center);
+            & .period{
+                color: $purplish-blue;
+            }
         }
     }
 }
+
 
 .buttonContainer {
     display: flex;
@@ -95,4 +103,3 @@
         }
     }
 }
-

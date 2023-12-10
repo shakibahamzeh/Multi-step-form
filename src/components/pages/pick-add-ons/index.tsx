@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styles from "./pickAddOns.module.scss";
 import { StepContext } from "@/lib/context/step/stepContext";
 const PickAddOns:React.FC = () => {
@@ -17,7 +17,7 @@ const PickAddOns:React.FC = () => {
   price: number;
   }
 
-  const [selected, setSelected] = useState<Boolean[]>([false, false, false]);
+  const [selected, setSelected] = useState<boolean[]>([false, false, false]);
   const [newSelected, setNewSelected] = useState<ISelected[]>([]);
   const step = useContext(StepContext);
 
@@ -63,21 +63,20 @@ const PickAddOns:React.FC = () => {
     },
   ];
 
-  const handleSelect = (index:number): void => {
-    let newSelect = [...selected];
+
+  const handleSelect = (index: number): void => {
+    const newSelect = [...selected];
     newSelect[index] = !newSelect[index];
-    console.log(newSelect);
-    let myList: ISelected[] = [];
-    if (localStorage.getItem("period") === "monthly") {
-      newSelect.map((b, i) => {
-        if (b) myList.push(monthlyData[i]);
-      });
-    } else {
-      newSelect.map((b, i) => {
-        if (b) myList.push(yearlyData[i]);
-      });
-    }
     setSelected(newSelect);
+
+    let myList: ISelected[] = [];
+    const currentData = localStorage.getItem("period") === "monthly" ? monthlyData : yearlyData;
+    newSelect.forEach((isChecked, i) => {
+      if (isChecked) {
+        myList.push(currentData[i]);
+      }
+    });
+
     setNewSelected(myList);
   };
 
@@ -85,12 +84,38 @@ const PickAddOns:React.FC = () => {
     step.setStep(2);
     localStorage.setItem("step", "2");
   };
+
+
   const submitHandler = ():void => {
     step.setStep(4);
     localStorage.setItem("step", "4");
     localStorage.setItem("ons", JSON.stringify(newSelected));
   };
 
+  useEffect(() => {
+    const storedAddOns = localStorage.getItem("ons");
+    if (storedAddOns) {
+      const parsedAddOns: ISelected[] = JSON.parse(storedAddOns);
+  
+      // Determine the maximum possible length based on the data
+      const maxLength = Math.max(monthlyData.length, yearlyData.length);
+  
+      // Initialize selected array with false values
+      const initialSelected = Array(maxLength).fill(false);
+  
+      parsedAddOns.forEach((addOn) => {
+        const index = monthlyData.findIndex((item) => item.id === addOn.id);
+  
+        // Check if index is within bounds
+        if (index !== -1 && index < maxLength) {
+          initialSelected[index] = true;
+        }
+      });
+  
+      setSelected(initialSelected);
+      setNewSelected(parsedAddOns);
+    }
+  }, []);
   return (
     <div className={styles.container}>
       <div>
