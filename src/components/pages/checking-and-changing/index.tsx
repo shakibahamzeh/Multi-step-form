@@ -14,7 +14,9 @@ const CheckingAndChange: React.FC= () => {
     price: number;
   }
 
-  const planJSON: string | null = localStorage.getItem("plan");
+  const planJSON: string | null = localStorage.getItem("selectedPlan");
+
+  
   const period: string | null = localStorage.getItem("period");
   const onsJSON: string | null = localStorage.getItem("ons");
   const step = useContext(StepContext);

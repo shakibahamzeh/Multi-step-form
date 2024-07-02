@@ -30,7 +30,7 @@ export default function Home() {
       </Head>
       <main className={`${font.className} ${styles.main}`}>
         <section className={styles.sidebar}>
-          <div>
+          <div className={styles.sidebarWrapper}>
             {stepData.map((item) => (
               <div key={item.id} className={styles.stepContainer}>
                 <div
